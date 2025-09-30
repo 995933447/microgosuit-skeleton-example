@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package user;
+option go_package = "github.com/995933447/microgosuit-skeleton-example/user";
+import "github.com/995933447/microgosuit/skeleton/proto/ext.proto";
+import "enum.proto";
+
+service user {
+  rpc GetUser(GetUserReq) returns (GetUserResp);
+  rpc SetUser(SetUserReq) returns (SetUserResp);
+  rpc GetUserOutputStream(GetUserReq) returns (stream GetUserResp);
+  rpc GetUserInputStream(stream GetUserReq) returns (GetUserResp);
+  rpc GetUserInOutStream(stream GetUserReq) returns (stream GetUserResp);
+}
+
+service UserGateway {
+  rpc GetUserInfo(GetUserReq) returns (GetUserResp) {
+    option (ext.http_proxy_access_rule) = {
+      method: "POST";
+      no_auth: true;
+    };
+  }
+}
+
+message SetUserReq {
+  uint64 id = 1;
+}
+
+message SetUserResp {
+  string name = 1;
+}
+
+message GetUserReq {
+  uint64 id = 1;
+}
+
+message GetUserResp {
+  message User {
+    string name = 1;
+  }
+  User user = 1;
+}
