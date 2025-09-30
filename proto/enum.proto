@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package enum;
+option go_package = "github.com/995933447/microgosuit-skeleton-example/enum";
+import "github.com/995933447/microgosuit/skeleton/proto/ext.proto";
+
+enum RpcPort {
+  option (ext.is_rpc_port) = true;
+  RpcPortNil = 0;
+  RpcPortUser = 9111;
+}
+
+enum ErrCode {
+  ErrNil = 0;
+  ErrFail = 1001;
+}
