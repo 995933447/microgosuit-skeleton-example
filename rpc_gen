@@ -1,0 +1,7 @@
+protoc --go_out=. --go-grpc_out=. --proto_path=./proto ./proto/enum.proto
+
+if [ $# -eq 0 ]; then
+  exit 0
+fi
+
+protoc --go_out=. --go-grpc_out=. --grpc-server_out=. --grpc-client_out=. --proto_path=./proto ./proto/$1.proto
